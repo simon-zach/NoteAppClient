@@ -18,7 +18,7 @@ function Users() {
       <div>
           {
           data && data.users.map(user=>{
-                return <div>{user.username}</div>
+                return <div key={user.id}>{user.username}</div>
             })
           }  
           {!data && <h2>No data</h2>}

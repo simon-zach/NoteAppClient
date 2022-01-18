@@ -1,21 +1,45 @@
 import React, {useState} from "react";
-import {useApolloClient,useMutation, gql} from "@apollo/client"
+import {useMutation, gql, useApolloClient} from "@apollo/client"
+import { useNavigate } from "react-router-dom";
 
 
-
-const SIGNUP_USER = 
-    gql`
-     mutation signUp ($username:String!,$email:String!,$password: String!){
+const SIGNUP_USER = gql`
+    mutation signUp ($username:String!,$email:String!,$password: String!){
        signUp (username:$username,email:$email,password:$password)  
-       }
+    }
      `
 
-function SignUp() {
-    
+const UPDATE_CACHE = gql`
+    query {
+        user {
+            isLoggedIn 
+        }
+    }`
+
     
 
+function SignUp(props) {
+    let navigate = useNavigate();
+    
+    //Klient Apollo
+    const client = useApolloClient()
+
     const [signUp, {loading, error}] = useMutation(SIGNUP_USER,{
-        onCompleted: data =>console.log(data.signUp)
+        onCompleted: data =>{
+            console.log(data.signUp);
+            localStorage.setItem('token', data.signUp);
+            //uaktualnienie bufora lokalnego
+            client.writeQuery({
+                query: UPDATE_CACHE,
+                    data : {
+                    user: {
+                        isLoggedIn: true
+                    }
+                    },
+                }, 
+            );
+            navigate("/");
+        }
     })
 
     const [username, setUsername] = useState()
@@ -37,7 +61,6 @@ function SignUp() {
     const onSubmit = (e) => {
         e.preventDefault();
         
-        console.log(username+email+password)
         signUp({variables:{
             username:username,
             email:email,

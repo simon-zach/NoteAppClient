@@ -7,17 +7,50 @@ import {
   ApolloClient,
   InMemoryCache,
   ApolloProvider,
-  useQuery,
+  createHttpLink,
   gql
 } from "@apollo/client";
 
-const uri = process.env.REACT_APP_API_URI
+import {setContext} from 'apollo-link-context'
 
+//Konfiguracja adresu URI Servera apollo
+const uri = process.env.REACT_APP_API_URI;
+const httpLink = createHttpLink({uri});
+const cache = new InMemoryCache();
+
+//Sprawdzenie tokena i zwrot nagłówków do kontekstu
+const authLink = setContext((_,{headers}) => {
+  return {
+    headers: {
+      ...headers,
+      authorization: localStorage.getItem('token') || ''
+    }
+  }
+})
 
 const client = new ApolloClient({
-  uri: uri,
-  cache: new InMemoryCache()
+  link: authLink.concat(httpLink),
+  cache,
+  resolvers: {},
+  connectToDevTools: true
 });
+
+const isLoggedIn = !!localStorage.getItem('token')
+
+client.writeQuery({
+  query: gql`
+    query {
+      user {
+        isLoggedIn 
+      }
+    }`,
+    data : {
+      user: {
+        isLoggedIn: isLoggedIn
+      }
+    },
+  }, 
+);
 
 const rootElement = document.getElementById("root");
 render(
