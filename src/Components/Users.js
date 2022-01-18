@@ -13,15 +13,16 @@ const GET_USERS =
 
 function Users() {
     const {data}= useQuery(GET_USERS)
-    console.log(data)
-  return (
-  <div>
-      {
-        data.users.map(user=>{
-            return <div>{user.username}</div>
-        })
-      }
-  </div>
+    
+     return (
+      <div>
+          {
+          data && data.users.map(user=>{
+                return <div>{user.username}</div>
+            })
+          }  
+          {!data && <h2>No data</h2>}
+      </div>
   );
 }
 
