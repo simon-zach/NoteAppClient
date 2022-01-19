@@ -2,6 +2,11 @@ import { render } from "react-dom";
 import { BrowserRouter,Routes, Route } from "react-router-dom";
 import App from "./App";
 import SignUp from "./Components/SignUp";
+import SignIn from "./Components/SignIn";
+import PrivateRoute from "./Components/PrivateRoute";
+import Users from "./Components/Users"
+import Notes from "./Components/Notes"
+import AddNote from "./Components/AddNote"
 
 import {
   ApolloClient,
@@ -58,7 +63,13 @@ render(
     <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />}></Route>
+            <Route path="/users" element={<PrivateRoute />}>
+              <Route path="" element={<Users />} />
+            </Route>
+            <Route path="/Notes" element={<Notes />}></Route>
+            <Route path="/addNote" element={<AddNote />}></Route>
             <Route path="/SignUp" element={<SignUp />}></Route>
+            <Route path="/SignIn" element={<SignIn />}></Route>
           </Routes>
     </BrowserRouter>
   </ApolloProvider>,

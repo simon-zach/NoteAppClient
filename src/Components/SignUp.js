@@ -18,7 +18,7 @@ const UPDATE_CACHE = gql`
 
     
 
-function SignUp(props) {
+function SignUp() {
     let navigate = useNavigate();
     
     //Klient Apollo
@@ -70,18 +70,20 @@ function SignUp(props) {
     }
     
   return (
-  <div>
-      <h1>SignUp Form</h1>
-      <form onSubmit={onSubmit}>
-          <label htmlFor="username">Nazwa użytkownika:</label><br/>
-          <input required type="text" id="username" name="username" placeholder="Nazwa użytkownika" onChange={onChangeUsername}></input><br/>
-          <label htmlFor="email">Email:</label><br/>
-          <input required type="email" id="email" name="email" placeholder="Adres email" onChange={onChangeEmail}></input><br/>
-          <label htmlFor="password">Haslo:</label><br/>
-          <input required type="password" id="password" name="password" placeholder="Hasło" onChange={onChangePassword}></input><br/>
-          <button type="submit">Wyślij</button>
-      </form>
-  </div>
+  <>
+    <h1>SignUp Form</h1>
+    <form onSubmit={onSubmit}>
+        <label htmlFor="username">Nazwa użytkownika:</label><br/>
+        <input required type="text" id="username" name="username" placeholder="Nazwa użytkownika" onChange={onChangeUsername}></input><br/>
+        <label htmlFor="email">Email:</label><br/>
+        <input required type="email" id="email" name="email" placeholder="Adres email" onChange={onChangeEmail}></input><br/>
+        <label htmlFor="password">Haslo:</label><br/>
+        <input required type="password" id="password" name="password" placeholder="Hasło" onChange={onChangePassword}></input><br/>
+        <button type="submit">Wyślij</button>
+    </form>
+    {loading && <p>Wczytywanie...</p>}
+    {error && <p>Błąd podczas rejestracji!</p>}
+  </>
   );
 }
 

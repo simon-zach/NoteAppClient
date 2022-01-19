@@ -12,7 +12,9 @@ const GET_USERS =
 
 
 function Users() {
-    const {data}= useQuery(GET_USERS)
+
+  
+       const { loading, error, data}= useQuery(GET_USERS)
     
      return (
       <div>
@@ -21,7 +23,10 @@ function Users() {
                 return <div key={user.id}>{user.username}</div>
             })
           }  
-          {!data && <h2>No data</h2>}
+          
+          {loading && <p>Wczytywanie</p>}
+          {error && <p>Błąd</p>}
+
       </div>
   );
 }
