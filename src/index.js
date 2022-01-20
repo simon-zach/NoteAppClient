@@ -6,7 +6,9 @@ import SignIn from "./Components/SignIn";
 import PrivateRoute from "./Components/PrivateRoute";
 import Users from "./Components/Users"
 import Notes from "./Components/Notes"
-import AddNote from "./Components/AddNote"
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 import {
   ApolloClient,
@@ -62,14 +64,15 @@ render(
   <ApolloProvider client={client}>
     <BrowserRouter>
           <Routes>
-            <Route path="/" element={<App />}></Route>
-            <Route path="/users" element={<PrivateRoute />}>
-              <Route path="" element={<Users />} />
+            <Route path="/" element={<App />}>
+              <Route path="/users" element={<PrivateRoute component={<Users />}/>}></Route>
+              
+              
+              <Route path="/notes" element={<PrivateRoute component={<Notes />}/>}></Route> 
+           
+              <Route path="/SignUp" element={<SignUp />}></Route>
+              <Route path="/SignIn" element={<SignIn />}></Route>
             </Route>
-            <Route path="/Notes" element={<Notes />}></Route>
-            <Route path="/addNote" element={<AddNote />}></Route>
-            <Route path="/SignUp" element={<SignUp />}></Route>
-            <Route path="/SignIn" element={<SignIn />}></Route>
           </Routes>
     </BrowserRouter>
   </ApolloProvider>,

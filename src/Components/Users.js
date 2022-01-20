@@ -14,7 +14,7 @@ const GET_USERS =
 function Users() {
 
   
-       const { loading, error, data}= useQuery(GET_USERS)
+    const { loading, error, data}= useQuery(GET_USERS)
     
      return (
       <div>
