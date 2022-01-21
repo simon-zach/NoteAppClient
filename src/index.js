@@ -6,9 +6,8 @@ import SignIn from "./Components/SignIn";
 import PrivateRoute from "./Components/PrivateRoute";
 import Users from "./Components/Users"
 import Notes from "./Components/Notes"
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-
+import User from "./Components/User"
 
 import {
   ApolloClient,
@@ -19,6 +18,7 @@ import {
 } from "@apollo/client";
 
 import {setContext} from 'apollo-link-context'
+
 
 //Konfiguracja adresu URI Servera apollo
 const uri = process.env.REACT_APP_API_URI;
@@ -66,10 +66,8 @@ render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route path="/users" element={<PrivateRoute component={<Users />}/>}></Route>
-              
-              
-              <Route path="/notes" element={<PrivateRoute component={<Notes />}/>}></Route> 
-           
+              <Route path="/notes" element={<PrivateRoute component={<Notes />}/>}></Route>
+              <Route path="/user" element={<User />}></Route> 
               <Route path="/SignUp" element={<SignUp />}></Route>
               <Route path="/SignIn" element={<SignIn />}></Route>
             </Route>

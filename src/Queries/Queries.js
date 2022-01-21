@@ -1,10 +1,13 @@
 import {gql} from "@apollo/client"
 
 export const CREATE_NOTE = gql`
-mutation($content: String!){
-   newNote(content: $content) {
+mutation($content: String! $title: String! $color: Int!){
+   newNote(content: $content title: $title color: $color) {
      id
      content
+     createdAt
+     title
+     color
    }
  }
     `
@@ -17,6 +20,9 @@ export const GET_NOTES =
            notes{
                id
                content
+               createdAt
+               title
+               color
            }
        }
     }

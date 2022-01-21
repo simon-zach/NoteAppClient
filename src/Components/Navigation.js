@@ -57,12 +57,13 @@ function Navigation() {
             
       <Navbar bg="dark" variant="dark">
         <Container>
-        <Navbar.Brand href="#home">Navbar</Navbar.Brand>
+        <Navbar.Brand href="#home">Note App</Navbar.Brand>
           <Nav className="me-auto">
             {!user.isLoggedIn &&<Nav.Link href="/signIn">Log In</Nav.Link>}
             {!user.isLoggedIn &&<Nav.Link href="/signUp">Sign Up</Nav.Link>}
             {user.isLoggedIn&&<Nav.Link href="/Notes">Notes</Nav.Link>}
             {user.isLoggedIn&&<Nav.Link href="/Users">Users</Nav.Link>}
+            {user.isLoggedIn&&<Nav.Link href="/User">User</Nav.Link>}
             {user.isLoggedIn && <Button variant="primary" onClick={logOut}>Wyloguj</Button>}
             {!user.isLoggedIn && <Button variant="primary" onClick={register}>Zarejestruj</Button>}
           </Nav>
