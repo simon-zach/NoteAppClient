@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import {useMutation, gql, useApolloClient} from "@apollo/client"
 import { useNavigate } from "react-router-dom";
+import {Form, Button} from "react-bootstrap"
 
 
 const SIGNUP_IN = gql`
@@ -57,13 +58,14 @@ function SignIn(){
     return(
         <>
         <h1>Log In:</h1>
-        <form onSubmit={onSubmitForm}>
-            <label required htmlFor="login">Login:</label>
-            <input type="text" id="login" name="login" placeholder="login" onChange={onChangeLogin}></input>
-            <label htmlFor="password">Password</label>
-            <input required type="text" id="password" name="password" placeholder="password" onChange={onChangePassword}></input>
-            <button type="submit">Submit</button>
-        </form>
+        <Form onSubmit={onSubmitForm}>
+            <Form.Label required htmlFor="login">Login:</Form.Label>
+            <Form.Control type="text" id="login" name="login" placeholder="login" onChange={onChangeLogin}></Form.Control>
+            <Form.Label htmlFor="password">Password</Form.Label>
+            <Form.Control required type="text" id="password" name="password" placeholder="password" onChange={onChangePassword}></Form.Control>
+            <br/>
+            <Button type="submit">Submit</Button>
+        </Form>
         {loading && <p>Wczytywanie...</p>}
         {error && <p>Błąd podczas logowania!</p>}
         </>

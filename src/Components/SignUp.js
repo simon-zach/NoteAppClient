@@ -1,20 +1,8 @@
 import React, {useState} from "react";
 import {useMutation, gql, useApolloClient} from "@apollo/client"
 import { useNavigate } from "react-router-dom";
-
-
-const SIGNUP_USER = gql`
-    mutation signUp ($username:String!,$email:String!,$password: String!){
-       signUp (username:$username,email:$email,password:$password)  
-    }
-     `
-
-const UPDATE_CACHE = gql`
-    query {
-        user {
-            isLoggedIn 
-        }
-    }`
+import {Form, Button} from "react-bootstrap"
+import {SIGNUP_USER, UPDATE_CACHE} from "../Queries/Queries"
 
     
 
@@ -71,16 +59,16 @@ function SignUp() {
     
   return (
   <>
-    <h1>SignUp Form</h1>
-    <form onSubmit={onSubmit}>
-        <label htmlFor="username">Nazwa użytkownika:</label><br/>
-        <input required type="text" id="username" name="username" placeholder="Nazwa użytkownika" onChange={onChangeUsername}></input><br/>
-        <label htmlFor="email">Email:</label><br/>
-        <input required type="email" id="email" name="email" placeholder="Adres email" onChange={onChangeEmail}></input><br/>
-        <label htmlFor="password">Haslo:</label><br/>
-        <input required type="password" id="password" name="password" placeholder="Hasło" onChange={onChangePassword}></input><br/>
-        <button type="submit">Wyślij</button>
-    </form>
+    <h1>Sign up!</h1>
+    <Form onSubmit={onSubmit}>
+        <Form.Label htmlFor="username">User name:</Form.Label><br/>
+        <Form.Control required type="text" id="username" name="username" placeholder="Nazwa użytkownika" onChange={onChangeUsername}></Form.Control><br/>
+        <Form.Label htmlFor="email">Email:</Form.Label><br/>
+        <Form.Control required type="email" id="email" name="email" placeholder="Adres email" onChange={onChangeEmail}></Form.Control><br/>
+        <Form.Label htmlFor="password">Password:</Form.Label><br/>
+        <Form.Control required type="password" id="password" name="password" placeholder="Hasło" onChange={onChangePassword}></Form.Control><br/>
+        <Button type="submit">Register</Button>
+    </Form>
     {loading && <p>Wczytywanie...</p>}
     {error && <p>Błąd podczas rejestracji!</p>}
   </>

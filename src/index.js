@@ -8,6 +8,7 @@ import Users from "./Components/Users"
 import Notes from "./Components/Notes"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import User from "./Components/User"
+import EditNote from "./Components/EditNote"
 
 import {
   ApolloClient,
@@ -66,7 +67,12 @@ render(
           <Routes>
             <Route path="/" element={<App />}>
               <Route path="/users" element={<PrivateRoute component={<Users />}/>}></Route>
-              <Route path="/notes" element={<PrivateRoute component={<Notes />}/>}></Route>
+              <Route path="/notes" element={<PrivateRoute component={<Notes />}/>}>
+                <Route path=":refresh" element={<Notes />} />  
+              </Route>
+              <Route path="/editNote" element={<PrivateRoute component={<EditNote />}/>}>
+                 <Route path=":noteId" element={<EditNote />} />
+              </Route>
               <Route path="/user" element={<User />}></Route> 
               <Route path="/SignUp" element={<SignUp />}></Route>
               <Route path="/SignIn" element={<SignIn />}></Route>

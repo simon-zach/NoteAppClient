@@ -13,7 +13,7 @@ mutation($content: String! $title: String! $color: Int!){
     `
 export const GET_NOTES = 
     gql`
-    query  {
+    query {
        me{
            id
            username
@@ -27,3 +27,46 @@ export const GET_NOTES =
        }
     }
     `
+
+export const GET_NOTE = 
+    gql`
+    query ($id: ID!){
+        note(id: $id){
+          title,
+          content,
+          color
+        }
+    }
+    `
+
+export const DELETE_NOTE = 
+    gql`
+    mutation($id: ID!){
+      deleteNote(id: $id)
+    }
+    `
+
+
+export const SIGNUP_USER = gql`
+mutation signUp ($username:String!,$email:String!,$password: String!){
+    signUp (username:$username,email:$email,password:$password)  
+}
+  `
+
+export const UPDATE_CACHE = gql`
+query {
+    user {
+        isLoggedIn 
+    }
+}`
+
+export const UPDATE_NOTE = gql`
+mutation updateNote($id: ID!, $content: String!, $title: String!,$color: Int!){
+  updateNote(id: $id, content: $content, title: $title, color: $color){
+      id
+      content
+      title
+      color
+  }
+}
+`

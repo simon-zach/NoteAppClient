@@ -30,24 +30,24 @@ function Users() {
 
 
 <Row >
-  <Col md="auto" >
-      <Card style={{ width: '9rem' }}>
-          <Card.Img variant="top" src={user.avatar} />
-          <Card.Body>
-              <Card.Title>{user.username}</Card.Title>
-            
-          </Card.Body>
-      </Card>
-      <br/>
-  </Col>
+            <Col md="auto" >
+                <Card style={{ width: '9rem' }}>
+                    <Card.Img variant="top" src={user.avatar} />
+                    <Card.Body>
+                        <Card.Title>{user.username}</Card.Title>
+                        
+                    </Card.Body>
+                </Card>
+                <br/>
+            </Col>
 
-  <Col >
-      <ListGroup>
-          <ListGroup.Item>Id: {user.id} </ListGroup.Item>
-          <ListGroup.Item>Email: {user.email}</ListGroup.Item>
-          <ListGroup.Item>Username: {user.username}</ListGroup.Item>
-      </ListGroup>
-    </Col>  
+            <Col >
+                <ListGroup>
+                    <ListGroup.Item>Id: {user.id} </ListGroup.Item>
+                    <ListGroup.Item>Email: {user.email}</ListGroup.Item>
+                    <ListGroup.Item>Username: {user.username}</ListGroup.Item>
+                </ListGroup>
+                </Col>  
 </Row> 
 
 
