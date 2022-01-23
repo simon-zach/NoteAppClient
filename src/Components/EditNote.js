@@ -69,10 +69,7 @@ function EditNote(){
             title: noteTitle,
             color: noteColor
         }})
-        //console.log(noteText+noteTitle+typeof(noteColor))
-        //e.target.note.value=''
-        //e.target.title.value=''
-        //e.target.color.value='Select Color'
+
     }
     const onChangeNoteColor= (e) =>{
         setNoteColor(parseInt(e.target.value))

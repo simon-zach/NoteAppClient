@@ -1,5 +1,18 @@
 import {gql} from "@apollo/client"
 
+
+
+export const GET_USERS = 
+ gql`
+  query{
+      users {
+        id
+        username
+        email
+        avatar
+    }}
+  `
+
 export const CREATE_NOTE = gql`
 mutation($content: String! $title: String! $color: Int!){
    newNote(content: $content title: $title color: $color) {

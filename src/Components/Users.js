@@ -1,76 +1,43 @@
 import React from "react";
-import {useQuery, gql} from "@apollo/client"
+import {useQuery} from "@apollo/client"
 import { ListGroup, Container, Row, Col,Card } from "react-bootstrap";
-
-const GET_USERS = 
- gql`
-  query{
-      users {
-        id
-        username
-        email
-        avatar
-    }}
-  `
-
+import {GET_USERS} from "../Queries/Queries"
 
 function Users() {
-
-  
     const { loading, error, data}= useQuery(GET_USERS)
     if (loading) return <p>Loading...</p>
     if (error) return <p>Error</p>
 
-
-
      return (
       <Container> 
-
-{data && data.users.map(user=>{ return (
-
-
-<Row >
-            <Col md="auto" >
-                <Card style={{ width: '9rem' }}>
-                    <Card.Img variant="top" src={user.avatar} />
-                    <Card.Body>
-                        <Card.Title>{user.username}</Card.Title>
-                        
-                    </Card.Body>
-                </Card>
+        {
+        data && data.users.map(user=>{ 
+            return(
+                <>
                 <br/>
-            </Col>
+                <Row key={user.id}>
+                   <Card style={{ width: '6rem' }}>
+                       <Card.Img variant="top" src={user.avatar} />
+                   </Card>
 
-            <Col >
-                <ListGroup>
-                    <ListGroup.Item>Id: {user.id} </ListGroup.Item>
-                    <ListGroup.Item>Email: {user.email}</ListGroup.Item>
-                    <ListGroup.Item>Username: {user.username}</ListGroup.Item>
-                </ListGroup>
-                </Col>  
-</Row> 
+                   <br/>
+               
+               
 
-
-
-)   })} 
+               <Col >
+               <ListGroup>
+                   <ListGroup.Item>Id: {user.id} </ListGroup.Item>
+                   <ListGroup.Item>Email: {user.email}</ListGroup.Item>
+                   <ListGroup.Item>Username: {user.username}</ListGroup.Item>
+               </ListGroup>
+               </Col>  
+           </Row>
+                
+                </> 
+                )   
+            })
+        } 
       </Container>
-   
-        
-          
-        
-          
-          
-         
-         
-          
-      
-
-        
-          
-        
-     
-
-      
   );
 }
 

@@ -1,9 +1,7 @@
 import React from "react";
 import { Button, Nav, Navbar, Container } from 'react-bootstrap';
-import {useQuery, gql,useApolloClient} from '@apollo/client'
-import { useNavigate,Link } from 'react-router-dom';
-
-
+import { gql,useApolloClient} from '@apollo/client'
+import { useNavigate } from 'react-router-dom';
 
 const READ_USER = gql`
 
@@ -13,7 +11,6 @@ const READ_USER = gql`
     }
   }
 `;
-
 
 function Navigation() {
     const client = useApolloClient()
@@ -61,11 +58,11 @@ function Navigation() {
           <Nav className="me-auto">
             {!user.isLoggedIn &&<Nav.Link href="/signIn">Log In</Nav.Link>}
             {!user.isLoggedIn &&<Nav.Link href="/signUp">Sign Up</Nav.Link>}
-            {user.isLoggedIn&&<Nav.Link href="/Notes">Notes</Nav.Link>}
-            {user.isLoggedIn&&<Nav.Link href="/Users">Users</Nav.Link>}
-            {user.isLoggedIn&&<Nav.Link href="/User">User</Nav.Link>}
-            {user.isLoggedIn && <Button variant="primary" onClick={logOut}>Wyloguj</Button>}
             {!user.isLoggedIn && <Button variant="primary" onClick={register}>Zarejestruj</Button>}
+            {user.isLoggedIn&&<Nav.Link href="/Notes">My notes</Nav.Link>}
+            {user.isLoggedIn&&<Nav.Link href="/Users">All users</Nav.Link>}
+            {user.isLoggedIn&&<Nav.Link href="/User">My user data</Nav.Link>}
+            {user.isLoggedIn && <Button variant="primary" onClick={logOut}>Wyloguj</Button>}
           </Nav>
         </Container>
       </Navbar>
