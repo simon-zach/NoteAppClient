@@ -2,19 +2,9 @@ import React, {useState} from "react";
 import {useMutation, gql, useApolloClient} from "@apollo/client"
 import { useNavigate } from "react-router-dom";
 import {Form, Button} from "react-bootstrap"
+import {SIGNUP_IN, UPDATE_CACHE} from "../GraphQL/Mutations"
 
 
-const SIGNUP_IN = gql`
-    mutation signIn($username: String, $email: String, $password: String!){
-        signIn (username:$username,email:$email,password:$password)  
-    }
-     `
-     const UPDATE_CACHE = gql`
-     query {
-         user {
-             isLoggedIn 
-         }
-     }`
 function SignIn(){
     //Klient Apollo
     const client = useApolloClient()
@@ -36,7 +26,7 @@ function SignIn(){
                     },
                 }, 
             );
-            navigate("/");
+            navigate("/LoggedHome");
         }
     })
     const onChangePassword = (e) => {

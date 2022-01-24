@@ -3,8 +3,9 @@ import {gql, useMutation,useQuery,useLazyQuery} from "@apollo/client"
 import { Link ,Navigate,useNavigate,useParams} from "react-router-dom";
 import { Button, Form , ListGroup, Card, CardGroup, Row, Col} from "react-bootstrap";
 
-import {GET_NOTES,GET_NOTE, UPDATE_NOTE} from "../../src/Queries/Queries"
 
+import {GET_NOTE} from "../../src/GraphQL/Queries"
+import {UPDATE_NOTE} from "../../src/GraphQL/Mutations"
 function EditNote(){
     
     const params = useParams()
@@ -42,7 +43,7 @@ function EditNote(){
             
             onCompleted: data1 =>{
                 const refresh=1
-                navigate('/notes');
+                navigate('/mynotes');
             }
         })
         
@@ -80,11 +81,11 @@ function EditNote(){
     return(<>
     <h1>ID: {params.noteId}</h1>
          <Form onSubmit={onSubmitNote}>
-                <Form.Group>
-                    <Form.Label htmlFor="note">Note Text:</Form.Label>
-                    <Form.Control required id="note" value={noteText} name="note" type="text" placeholder="Your note" onChange={onChangeNote}></Form.Control>
+                <Form.Group>  
                     <Form.Label htmlFor="title">Title:</Form.Label>
                     <Form.Control required id="title" value={noteTitle} name="title" type="text" placeholder="Title" onChange={onChangeTitle}></Form.Control>
+                    <Form.Label htmlFor="note">Note Text:</Form.Label>
+                    <Form.Control required id="note" value={noteText} name="note" type="text" placeholder="Your note" onChange={onChangeNote}></Form.Control>
                     <br/>
                     <Form.Select required id="color" name="color" onChange={onChangeNoteColor}>
                         <option value={noteColor}>{cardColors[noteColor]}</option>

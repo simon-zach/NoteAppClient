@@ -1,25 +1,16 @@
 import React, {useState} from "react";
 import {gql,useQuery} from "@apollo/client"
 import {Container, Col, Row,Card,ListGroup} from "react-bootstrap"
-const GET_USER = 
-    gql`query  {
-        me{
-            id
-            username
-            email
-            avatar
-        }
-     }
-     `
+import {GET_MY_USER_DATA} from "../GraphQL/Queries" 
 
 
 
 function User(){
     const [userData,setUserData] = useState()
-    const {loading,error,data} = useQuery(GET_USER, {
+    const {loading,error,data} = useQuery(GET_MY_USER_DATA, {
         onCompleted: data =>{
             setUserData(userData)
-            console.log(data)
+           
         }
     })
     if (loading){

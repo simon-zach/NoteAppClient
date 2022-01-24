@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import { Button, Form } from "react-bootstrap";
-import {CREATE_NOTE, GET_NOTES, DELETE_NOTE} from "../../src/Queries/Queries"
+import {GET_MY_NOTES} from "../../src/GraphQL/Queries"
+import {CREATE_NOTE} from "../../src/GraphQL/Mutations"
 import {useMutation} from "@apollo/client"
 
 function AddNoteForm(){
@@ -17,7 +18,7 @@ function AddNoteForm(){
     }
 
     const [newNote, { data1, loading1, error1 }] =  useMutation(CREATE_NOTE, {
-            refetchQueries: [GET_NOTES]
+            refetchQueries: [GET_MY_NOTES]
     })
 
     if (loading1) return <p>loading ...</p>;
@@ -43,10 +44,10 @@ function AddNoteForm(){
     return(
             <Form onSubmit={onSubmitNote}>
             <Form.Group>
-                <Form.Label htmlFor="note">Create new note:</Form.Label>
-                <Form.Control required id="note" name="note" type="text" placeholder="Your note" onChange={onChangeNote}></Form.Control>
                 <Form.Label htmlFor="title">Title:</Form.Label>
                 <Form.Control required id="title" name="title" type="text" placeholder="Title" onChange={onChangeTitle}></Form.Control>
+                <Form.Label htmlFor="note">Create new note:</Form.Label>
+                <Form.Control required id="note" name="note" type="text" placeholder="Your note" onChange={onChangeNote}></Form.Control>
                 <br/>
                 <Form.Select required id="color" name="color" onChange={onChangeNoteColor}>
                     <option>Select Color</option>

@@ -5,10 +5,14 @@ import SignUp from "./Components/SignUp";
 import SignIn from "./Components/SignIn";
 import PrivateRoute from "./Components/PrivateRoute";
 import Users from "./Components/Users"
-import Notes from "./Components/Notes"
+import MyNotes from "./Components/MyNotes"
 import 'bootstrap/dist/css/bootstrap.min.css';
 import User from "./Components/User"
 import EditNote from "./Components/EditNote"
+import AllNotes from "./Components/AllNotes"
+import Home from "./Pages/Home"
+import LoggedOut from "./Pages/LoggedOut";
+ 
 
 import {
   ApolloClient,
@@ -16,9 +20,13 @@ import {
   ApolloProvider,
   createHttpLink,
   gql
+  
 } from "@apollo/client";
 
 import {setContext} from 'apollo-link-context'
+
+
+
 
 
 //Konfiguracja adresu URI Servera apollo
@@ -54,28 +62,34 @@ client.writeQuery({
     }`,
     data : {
       user: {
-        isLoggedIn: isLoggedIn
+        isLoggedIn: isLoggedIn,
       }
     },
   }, 
 );
+
+
+
+
 
 const rootElement = document.getElementById("root");
 render(
   <ApolloProvider client={client}>
     <BrowserRouter>
           <Routes>
-            <Route path="/" element={<App />}>
+            <Route path="/" element={<App/>}>
+              <Route index element={<Home />} />
               <Route path="/users" element={<PrivateRoute component={<Users />}/>}></Route>
-              <Route path="/notes" element={<PrivateRoute component={<Notes />}/>}>
-                <Route path=":refresh" element={<Notes />} />  
-              </Route>
+              <Route path="/myNotes" element={<PrivateRoute component={<MyNotes/>}/>}></Route>
+              <Route path="/allNotes" element={<PrivateRoute component={<AllNotes />}/>}></Route>
               <Route path="/editNote" element={<PrivateRoute component={<EditNote />}/>}>
                  <Route path=":noteId" element={<EditNote />} />
               </Route>
               <Route path="/user" element={<User />}></Route> 
               <Route path="/SignUp" element={<SignUp />}></Route>
               <Route path="/SignIn" element={<SignIn />}></Route>
+              <Route path="/loggedOut" element={<LoggedOut />}></Route>
+              
             </Route>
           </Routes>
     </BrowserRouter>
