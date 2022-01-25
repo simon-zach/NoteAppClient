@@ -1,12 +1,12 @@
 import React, {useState} from "react";
-import {useMutation, gql, useApolloClient} from "@apollo/client"
+import {useMutation, useApolloClient} from "@apollo/client"
 import { useNavigate } from "react-router-dom";
-import {Form, Button} from "react-bootstrap"
+import {Form, Button, Alert, Spinner} from "react-bootstrap"
 import {SIGNUP_IN, UPDATE_CACHE} from "../GraphQL/Mutations"
 
 
 function SignIn(){
-    //Klient Apollo
+
     const client = useApolloClient()
     let navigate = useNavigate();
     const [login, setLogin] = useState();
@@ -16,7 +16,7 @@ function SignIn(){
         onCompleted: data =>{
             console.log(data.signIn);
             localStorage.setItem('token', data.signIn);
-            //uaktualnienie bufora lokalnego
+            //updating local buffer
             client.writeQuery({
                 query: UPDATE_CACHE,
                     data : {
@@ -47,17 +47,17 @@ function SignIn(){
 
     return(
         <>
-        <h1>Log In:</h1>
-        <Form onSubmit={onSubmitForm}>
-            <Form.Label required htmlFor="login">Login:</Form.Label>
-            <Form.Control type="text" id="login" name="login" placeholder="login" onChange={onChangeLogin}></Form.Control>
-            <Form.Label htmlFor="password">Password</Form.Label>
-            <Form.Control required type="text" id="password" name="password" placeholder="password" onChange={onChangePassword}></Form.Control>
-            <br/>
-            <Button type="submit">Submit</Button>
-        </Form>
-        {loading && <p>Wczytywanie...</p>}
-        {error && <p>Błąd podczas logowania!</p>}
+            <h1>Log In:</h1>
+            {loading && <Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner>}
+            {error && <Alert variant="danger">Login Error. Check login and password!</Alert>}
+            <Form onSubmit={onSubmitForm}>
+                <Form.Label required htmlFor="login">Login:</Form.Label>
+                <Form.Control type="text" id="login" name="login" placeholder="login" onChange={onChangeLogin}></Form.Control>
+                <Form.Label htmlFor="password">Password</Form.Label>
+                <Form.Control required type="text" id="password" name="password" placeholder="password" onChange={onChangePassword}></Form.Control>
+                <br/>
+                <Button type="submit">Submit</Button>
+            </Form>
         </>
     )
 }

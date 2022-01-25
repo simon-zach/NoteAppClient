@@ -1,14 +1,18 @@
 import React, {useState} from "react";
-import { Button, Form } from "react-bootstrap";
+import { Button, Form, Alert, Spinner} from "react-bootstrap";
 import {GET_MY_NOTES} from "../../src/GraphQL/Queries"
 import {CREATE_NOTE} from "../../src/GraphQL/Mutations"
 import {useMutation} from "@apollo/client"
+
 
 function AddNoteForm(){
 
     const [noteText, setNoteText] = useState()
     const [noteTitle, setNoteTitle] = useState()
     const [noteColor, setNoteColor] = useState()
+
+    const [newNote, { data, loading, error }] =  useMutation(CREATE_NOTE, {
+        refetchQueries: [GET_MY_NOTES]})
 
     const onChangeNote = (e) => {
         setNoteText(e.target.value)
@@ -17,13 +21,6 @@ function AddNoteForm(){
         setNoteTitle(e.target.value)
     }
 
-    const [newNote, { data1, loading1, error1 }] =  useMutation(CREATE_NOTE, {
-            refetchQueries: [GET_MY_NOTES]
-    })
-
-    if (loading1) return <p>loading ...</p>;
-    if (error1) return `Error! ${error1}`;
-
     const onSubmitNote = (e) => {
         e.preventDefault();
         newNote({variables:{
@@ -31,7 +28,6 @@ function AddNoteForm(){
             title: noteTitle,
             color: noteColor
         }})
-        //console.log(noteText+noteTitle+typeof(noteColor))
         e.target.note.value=''
         e.target.title.value=''
         e.target.color.value='Select Color'
@@ -42,6 +38,9 @@ function AddNoteForm(){
     }
  
     return(
+        <>
+            {loading && <Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner>}
+            {error && <Alert variant="danger">{`Error! ${error}`}</Alert>}
             <Form onSubmit={onSubmitNote}>
             <Form.Group>
                 <Form.Label htmlFor="title">Title:</Form.Label>
@@ -64,6 +63,8 @@ function AddNoteForm(){
                 <Button type="submit">Create note</Button>
             </Form.Group>
         </Form>
+        </>
+            
     )
 }
 export default AddNoteForm

@@ -12,8 +12,8 @@ import EditNote from "./Components/EditNote"
 import AllNotes from "./Components/AllNotes"
 import Home from "./Pages/Home"
 import LoggedOut from "./Pages/LoggedOut";
- 
-
+import LoggedHome from "./Pages/LoggedHome";
+import {setContext} from 'apollo-link-context'
 import {
   ApolloClient,
   InMemoryCache,
@@ -23,15 +23,11 @@ import {
   
 } from "@apollo/client";
 
-import {setContext} from 'apollo-link-context'
-
-
-
-
 
 //Konfiguracja adresu URI Servera apollo
 const uri = process.env.REACT_APP_API_URI;
 const httpLink = createHttpLink({uri});
+
 const cache = new InMemoryCache();
 
 //Sprawdzenie tokena i zwrot nagłówków do kontekstu
@@ -68,10 +64,6 @@ client.writeQuery({
   }, 
 );
 
-
-
-
-
 const rootElement = document.getElementById("root");
 render(
   <ApolloProvider client={client}>
@@ -89,7 +81,7 @@ render(
               <Route path="/SignUp" element={<SignUp />}></Route>
               <Route path="/SignIn" element={<SignIn />}></Route>
               <Route path="/loggedOut" element={<LoggedOut />}></Route>
-              
+              <Route path="/loggedHome" element={<LoggedHome />}></Route>
             </Route>
           </Routes>
     </BrowserRouter>

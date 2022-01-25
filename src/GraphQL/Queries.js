@@ -2,18 +2,17 @@ import {gql} from "@apollo/client"
 
 
 
-     export const READ_USER_FROM_CACHE = gql`
-
-  query  {
-    user {
-     isLoggedIn
-    }
+export const READ_USER_FROM_CACHE = gql`
+  query{
+      user {
+      isLoggedIn
+      }
   }
 `;
 
 export const GET_MY_USER_DATA = 
     gql`
-    query  {
+    query{
         me{
             id
             username
@@ -57,30 +56,30 @@ export const GET_MY_NOTES =
        }
     }
     `
-    export const GET_ALL_NOTES = 
-    gql`
-    query {
-           notes{
-               id
-               content
-               createdAt
-               title
-               color
-               favoriteCount
-               favoritedBy{
-                 id
-                 username
-                 email
-                 avatar
-               }
-               author{
-                 avatar
-                 username
-               }
-           }
-       
-    }
-    `
+export const GET_ALL_NOTES = 
+gql`
+query {
+        notes{
+            id
+            content
+            createdAt
+            title
+            color
+            favoriteCount
+            favoritedBy{
+              id
+              username
+              email
+              avatar
+            }
+            author{
+              avatar
+              username
+            }
+        }
+    
+}
+`
 
 export const GET_NOTE = 
     gql`
@@ -98,3 +97,10 @@ export const GET_NOTE =
         }
     }
     `
+export const READ_USER = gql`
+    query  {
+      user {
+       isLoggedIn
+      }
+    }
+  `

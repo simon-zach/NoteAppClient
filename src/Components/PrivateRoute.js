@@ -1,17 +1,11 @@
-import React, { Children } from "react";
-import { BrowserRouter,Routes, Route ,Navigate} from "react-router-dom";
-import {useQuery, gql,useApolloClient} from '@apollo/client'
-import Users from "./Users";
-
-const READ_USER = gql`
-  query  {
-    user {
-     isLoggedIn
-    }
-  }
-`;
+import React from "react";
+import {Navigate} from "react-router-dom";
+import {useApolloClient} from '@apollo/client'
+import {READ_USER} from "../GraphQL/Queries"
+import {Spinner, Alert} from "react-bootstrap"
 
 function PrivateRoute({component}){
+  
     const client = useApolloClient();
 
     const  {loading, error, user}  = client.readQuery({
@@ -20,7 +14,8 @@ function PrivateRoute({component}){
 
     return(
         <>
-            {loading&&<p>loading</p>}
+           {(loading) && <Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner>}
+           {error && <Alert variant="danger">{`Error! ${error}`}</Alert>}
            { !user.isLoggedIn ? <Navigate to="/signIn" />:component}
         </>
     )

@@ -1,7 +1,6 @@
 import React, {useEffect} from "react";
 import {useMutation,useQuery} from "@apollo/client"
-import { useNavigate} from "react-router-dom";
-import { Button , Card, CardGroup, Col,Accordion} from "react-bootstrap";
+import { Button , Card, CardGroup, Col, Spinner,Alert} from "react-bootstrap";
 import LikesList from "./LikesList";
 import {GET_ALL_NOTES} from "../../src/GraphQL/Queries"
 import {DELETE_NOTE,TOOGLE_FAVORITE} from "../../src/GraphQL/Mutations"
@@ -12,12 +11,9 @@ function AllNotes(){
     useEffect(()=>{
         refetch()
     },[])
-    const navigate= useNavigate()
     
-
     const  { loading, error, data , refetch} = useQuery(GET_ALL_NOTES);
     
-
     const [deleteNote, { data2, loading2, error2, }] =  useMutation(DELETE_NOTE,{
             refetchQueries: [GET_ALL_NOTES]
     })
@@ -26,43 +22,40 @@ function AllNotes(){
         refetchQueries: [GET_ALL_NOTES]
     })
  
-  
-    if (loading) return <p>Loading ...</p>;
-    if (error) return `Error! ${error}`;
+    const onClickDeleteNote = (e) => {
+    deleteNote({variables:
+    {id:e.target.value}})
+    }
 
-    if (loading2) return <p>Loading ...</p>;
-    if (error2) return `Error! ${error2}`;
-  
-    if (loading3) return <p>Loading ...</p>;
-    if (error3) return `Error! ${error3}`;
-      const onClickDeleteNote = (e) => {
-        deleteNote({variables:
-        {id:e.target.value}})
-      }
-
-      const selectColor = (colorNum) => {
-        const cardColors=[
-            'primary',
-            'secondary',
-            'success',
-            'danger',
-            'warning',
-            'info',
-            'light',
-            'dark',
-          ]
-          return cardColors[colorNum]
-        }
-        const onClickToogleLike=(e)=>{
-            const id = e.target.value
-            toogleLike({
-                variables: {id}
-            })
-        }
+    const selectColor = (colorNum) => {
+    const cardColors=[
+        'primary',
+        'secondary',
+        'success',
+        'danger',
+        'warning',
+        'info',
+        'light',
+        'dark',
+        ]
+        return cardColors[colorNum]
+    }
+    const onClickToogleLike=(e)=>{
+        const id = e.target.value
+        toogleLike({
+            variables: {id}
+        })
+    }
 
     return(
         <>
             <br/>
+            {(loading||loading2||loading3) && <Spinner animation="border" role="status"><span className="visually-hidden">Loading...</span></Spinner>}
+            {error && <Alert variant="danger">{`Error! ${error}`}</Alert>}
+            {error2 && <Alert variant="danger">{`Error! ${error2}`}</Alert>}
+            {error3 && <Alert variant="danger">{`Error! ${error3}`}</Alert>}
+
+            {data && data.notes.length==0 && <h1>At this moment there is no notes in app!</h1> }
             <CardGroup>
                 {
                 data && data.notes.map(note=>{ 
