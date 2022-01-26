@@ -1,5 +1,5 @@
 # Note App Client
-This app was created to present react usage with qgraph ql queries.
+This app was created to present react usage with graphQL queries.
 In App was used Apollo client. App makes qraphQL queries to the
 
 User can Log In, Register and create notes.
