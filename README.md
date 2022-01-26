@@ -12,7 +12,7 @@ User can log ln, register and create notes.
 
 Note can be edited and liked.
 
-##How to run
+## How to run?
 
 This app require server app which already was pushed to noteAppServer repository.
 
