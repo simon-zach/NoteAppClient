@@ -1,6 +1,7 @@
 # Note App Client
 This app was created to present react usage with graphQL queries.
-In App was used Apollo client. App makes qraphQL queries to the
+In App was used Apollo client. App makes qraphQL queries to Apollo server.
+
 Styling was made in boostrap.
 
 User can log ln, register and create notes.
